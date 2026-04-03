@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generador de Buyer Persona con IA para Posgrados en Colombia">
+  <title>Buyer Persona AI | Posgrados Colombia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient background orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <div class="app-container">
+    <!-- Sidebar - Formulario -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 256 256" fill="none">
+            <path d="M 256 156 C 256 211.228 211.228 256 156 256 L 0 256 L 0 100 C 0 44.772 44.772 0 100 0 L 256 0 Z M 106 16 C 56.294 16 16 56.294 16 106 L 16 150 C 16 199.706 56.294 240 106 240 L 150 240 C 199.706 240 240 199.706 240 150 L 240 106 C 240 56.294 199.706 16 150 16 Z" fill="rgb(84, 84, 84)"></path>
+            <!-- User icon inside -->
+            <circle cx="128" cy="100" r="32" fill="none" stroke="white" stroke-width="10"/>
+            <path d="M72 200 C72 170 96 152 128 152 C160 152 184 170 184 200" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>Buyer Persona</h1>
+          <p>Generador con IA</p>
+        </div>
+        <button id="settingsBtn" class="settings-btn" title="Configuración API">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="icpForm" class="icp-form" novalidate>
+        <!-- Progress Bar -->
+        <div class="form-progress-container">
+          <div class="form-progress-bar">
+            <div class="form-progress-fill" id="formProgress"></div>
+          </div>
+          <span class="form-progress-text" id="formProgressText">0% completado</span>
+        </div>
+
+        <!-- Datos Personales -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <span class="section-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>
+            </span>
+            Datos Personales
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="V01">Rango de Edad</label>
+              <select id="V01" name="V01" required>
+                <option value="">Seleccionar</option>
+                <option value="1">18 - 24 años</option>
+                <option value="2">25 - 30 años</option>
+                <option value="3">31 - 35 años</option>
+                <option value="4">36 - 40 años</option>
+                <option value="5">41 - 45 años</option>
+                <option value="6">46 - 50 años</option>
+                <option value="7">51 - 60 años</option>
+                <option value="8">61+ años</option>
+              </select>
+              <span class="error-message" id="V01-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="V02">Género</label>
+              <select id="V02" name="V02" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Masculino</option>
+                <option value="2">Femenino</option>
+                <option value="3">Otro</option>
+                <option value="4">Prefiero no decir</option>
+              </select>
+              <span class="error-message" id="V02-error"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="V03">Nivel de Formación Actual</label>
+              <select id="V03" name="V03" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Bachillerato</option>
+                <option value="2">Técnico</option>
+                <option value="3">Tecnólogo</option>
+                <option value="4">Profesional</option>
+                <option value="5">Especialización</option>
+                <option value="6">Maestría/Doctorado</option>
+              </select>
+              <span class="error-message" id="V03-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="V13">Formación Previa</label>
+              <select id="V13" name="V13" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Bachillerato</option>
+                <option value="2">Técnico</option>
+                <option value="3">Tecnólogo</option>
+                <option value="4">Profesional</option>
+                <option value="5">Especialización</option>
+                <option value="6">Maestría/Doctorado</option>
+              </select>
+              <span class="error-message" id="V13-error"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información Socioeconómica -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <span class="section-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </span>
+            Información Socioeconómica
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="V04">Estrato Social</label>
+              <select id="V04" name="V04" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Estrato 1</option>
+                <option value="2">Estrato 2</option>
+                <option value="3">Estrato 3</option>
+                <option value="4">Estrato 4</option>
+                <option value="5">Estrato 5</option>
+                <option value="6">Estrato 6</option>
+              </select>
+              <span class="error-message" id="V04-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="V05">Salario (SMLV)</label>
+              <select id="V05" name="V05" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Menos de 1 SMLV</option>
+                <option value="2">1 - 2 SMLV</option>
+                <option value="3">2 - 4 SMLV</option>
+                <option value="4">4 - 6 SMLV</option>
+                <option value="5">6 - 10 SMLV</option>
+                <option value="6">Más de 10 SMLV</option>
+              </select>
+              <span class="error-message" id="V05-error"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perfil Profesional -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <span class="section-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </span>
+            Perfil Profesional
+          </h3>
+          <div class="form-group">
+            <label for="V06">Pertenencia a Redes Sociales</label>
+            <select id="V06" name="V06" required>
+              <option value="">Seleccionar</option>
+              <option value="1">Ninguna</option>
+              <option value="2">Facebook</option>
+              <option value="3">Instagram</option>
+              <option value="4">LinkedIn</option>
+              <option value="5">TikTok</option>
+              <option value="6">Twitter/X</option>
+              <option value="7">Múltiples redes</option>
+            </select>
+            <span class="error-message" id="V06-error"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="V07">Ascenso Laboral</label>
+              <select id="V07" name="V07" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Muy lento</option>
+                <option value="2">Lento</option>
+                <option value="3">Regular</option>
+                <option value="4">Rápido</option>
+                <option value="5">Muy rápido</option>
+              </select>
+              <span class="error-message" id="V07-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="V08">Desarrollo Personal</label>
+              <select id="V08" name="V08" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Muy bajo</option>
+                <option value="2">Bajo</option>
+                <option value="3">Medio</option>
+                <option value="4">Alto</option>
+                <option value="5">Muy alto</option>
+              </select>
+              <span class="error-message" id="V08-error"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="V09">Situación Laboral</label>
+              <select id="V09" name="V09" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Desempleado</option>
+                <option value="2">Empleado</option>
+                <option value="3">Independiente</option>
+                <option value="4">Empresario</option>
+              </select>
+              <span class="error-message" id="V09-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="V14">Objetivo del Postgrado</label>
+              <select id="V14" name="V14" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Internacionalización</option>
+                <option value="2">Crecimiento personal</option>
+                <option value="3">Ascenso laboral</option>
+                <option value="4">Emprendimiento</option>
+                <option value="5">Investigación</option>
+                <option value="6">Networking profesional</option>
+                <option value="7">Cambio de carrera</option>
+              </select>
+              <span class="error-message" id="V14-error"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información del Programa -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <span class="section-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </span>
+            Programa de Interés
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="V10">Precio Programa (SMLV)</label>
+              <select id="V10" name="V10" required>
+                <option value="">Seleccionar</option>
+                <option value="1">1 - 5 SMLV</option>
+                <option value="2">5 - 10 SMLV</option>
+                <option value="3">10 - 15 SMLV</option>
+                <option value="4">15 - 20 SMLV</option>
+                <option value="5">20 - 30 SMLV</option>
+                <option value="6">Más de 30 SMLV</option>
+              </select>
+              <span class="error-message" id="V10-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="V11">Modalidad</label>
+              <select id="V11" name="V11" required>
+                <option value="">Seleccionar</option>
+                <option value="1">Presencial</option>
+                <option value="2">Virtual</option>
+                <option value="3">Híbrida</option>
+              </select>
+              <span class="error-message" id="V11-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="V12_level">Nivel Académico</label>
+            <select id="V12_level" name="V12_level">
+              <option value="">Todos los niveles</option>
+              <option value="esp">Especialización</option>
+              <option value="mae">Maestría</option>
+              <option value="doc">Doctorado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="V12">Programa</label>
+            <select id="V12" name="V12" required>
+              <option value="">Seleccionar programa...</option>
+              <optgroup label="── Especialización ──">
+                <option value="1">Esp. en Dramaturgia del Actor</option>
+                <option value="2">Esp. en Gestión Ambiental Local</option>
+                <option value="3">Esp. en Gestión Ambiental Local (Virtual)</option>
+                <option value="4">Esp. en Enseñanza de la Física</option>
+                <option value="5">Esp. en Entrenamiento Deportivo y Readaptación Funcional</option>
+                <option value="6">Esp. en Gerencia del Deporte</option>
+                <option value="7">Esp. en Gerencia en Sistemas de Salud</option>
+                <option value="8">Esp. en Ginecología y Obstetricia</option>
+                <option value="9">Esp. en Medicina Crítica y Cuidado Intensivo</option>
+                <option value="10">Esp. en Medicina de Urgencias</option>
+                <option value="11">Esp. en Medicina Interna</option>
+                <option value="12">Esp. en Pediatría</option>
+                <option value="13">Esp. en Psiquiatría</option>
+                <option value="14">Esp. en Analítica y Ciencia de Datos Aplicada</option>
+                <option value="15">Esp. en Gerencia de Proyectos</option>
+                <option value="16">Esp. en Gestión de la Calidad y Normalización Técnica</option>
+                <option value="17">Esp. en Seguridad y Salud en el Trabajo</option>
+                <option value="18">Esp. en Soldadura</option>
+                <option value="19">Esp. en Tecnologías de la Información y las Comunicaciones</option>
+                <option value="20">Esp. en Logística Empresarial</option>
+              </optgroup>
+              <optgroup label="── Maestría ──">
+                <option value="21">Maestría en Educación Bilingüe</option>
+                <option value="22">Maestría en Educación y Arte</option>
+                <option value="23">Maestría en Estética y Creación</option>
+                <option value="24">Maestría en Estudios Culturales y Narrativas Contemporáneas</option>
+                <option value="25">Maestría en Filosofía</option>
+                <option value="26">Maestría en Literatura</option>
+                <option value="27">Maestría en Música</option>
+                <option value="28">Maestría en Ciencias Ambientales</option>
+                <option value="29">Maestría en Ecotecnología</option>
+                <option value="30">Maestría en Gestión del Riesgo de Desastres</option>
+                <option value="31">Maestría en Enseñanza de la Física</option>
+                <option value="32">Maestría en Enseñanza de la Matemática</option>
+                <option value="33">Maestría en Instrumentación Física</option>
+                <option value="34">Maestría en Matemática</option>
+                <option value="35">Maestría en Comunicación Educativa</option>
+                <option value="36">Maestría en Educación</option>
+                <option value="37">Maestría en Educación (Virtual)</option>
+                <option value="38">Maestría en Historia</option>
+                <option value="39">Maestría en Infancia</option>
+                <option value="40">Maestría en Lingüística</option>
+                <option value="41">Maestría en Migraciones Internacionales</option>
+                <option value="42">Maestría en Biología Molecular y Biotecnología</option>
+                <option value="43">Maestría en Gerencia de las Organizaciones del Deporte</option>
+                <option value="44">Maestría en Gerencia en Sistemas de Salud</option>
+                <option value="45">Maestría en Administración de Empresas</option>
+                <option value="46">Maestría en Administración del Desarrollo Humano y Organizacional</option>
+                <option value="47">Maestría en Administración Económica y Financiera</option>
+                <option value="48">Maestría en Gestión y Dirección de Proyectos</option>
+                <option value="49">Maestría en Investigación Operativa y Estadística</option>
+                <option value="50">Maestría en Sistemas Integrados de Gestión de la Calidad</option>
+                <option value="51">Maestría en Ingeniería Mecánica</option>
+                <option value="52">Maestría en Sistemas Automáticos de Producción</option>
+                <option value="53">Maestría en Ingeniería de Sistemas y Computación</option>
+                <option value="54">Maestría en Ingeniería Eléctrica</option>
+                <option value="55">Maestría en Ciencias Químicas</option>
+                <option value="56">Maestría en Gerencia de la Cadena de Suministros</option>
+                <option value="57">Maestría en Agronegocios del Café</option>
+                <option value="58">Maestría en Desarrollo Agroindustrial</option>
+              </optgroup>
+              <optgroup label="── Doctorado ──">
+                <option value="59">Doctorado en Literatura</option>
+                <option value="60">Doctorado en Ciencias Ambientales</option>
+                <option value="61">Doctorado en Ciencias</option>
+                <option value="62">Doctorado en Ciencias de la Educación</option>
+                <option value="63">Doctorado en Didáctica</option>
+                <option value="64">Doctorado en Ciencias Biomédicas</option>
+                <option value="65">Doctorado en Ingeniería</option>
+                <option value="66">Doctorado en Biotecnología</option>
+              </optgroup>
+            </select>
+            <span class="error-message" id="V12-error"></span>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">
+          <span class="btn-text">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>
+            Generar Buyer Persona
+          </span>
+          <span class="btn-loader">
+            <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            Analizando...
+          </span>
+        </button>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <button type="button" id="exampleBtn" class="quick-action-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>
+            Ejemplos
+          </button>
+          <button type="button" id="apiConfigBtn" class="quick-action-btn" onclick="openSettingsModalDirect()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            API Keys
+          </button>
+          <button type="button" id="exportBtn" class="quick-action-btn hidden">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Exportar PDF
+          </button>
+        </div>
+      </form>
+    </aside>
+
+    <!-- Main Content - Resultados -->
+    <main class="main-content">
+      <!-- Estado: Vacío -->
+      <div id="emptyState" class="result-panel empty-state">
+        <div class="empty-content">
+          <div class="empty-icon">
+            <div class="empty-avatar-ring">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="url(#emptyIconGrad)" stroke-width="1.5">
+                <circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
+                <defs><linearGradient id="emptyIconGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+              </svg>
+            </div>
+          </div>
+          <h2>Crea tu Buyer Persona</h2>
+          <p>Completa el formulario para generar un perfil detallado de tu cliente ideal con inteligencia artificial.</p>
+          <div class="empty-features">
+            <div class="feature-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg> Score IA</div>
+            <div class="feature-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg> Avatar IA</div>
+            <div class="feature-chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg> Análisis</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado: Loading -->
+      <div id="loadingState" class="result-panel loading-state hidden">
+        <div class="loading-content">
+          <div class="loading-animation">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring delay-1"></div>
+            <div class="pulse-ring delay-2"></div>
+            <div class="pulse-center">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#loadGrad)" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/>
+                <defs><linearGradient id="loadGrad" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+              </svg>
+            </div>
+          </div>
+          <h2>Analizando perfil...</h2>
+          <p>Procesando datos con inteligencia artificial</p>
+          <div class="loading-steps">
+            <div class="step" data-step="1"><span class="step-indicator"></span><span class="step-text">Validando datos</span></div>
+            <div class="step" data-step="2"><span class="step-indicator"></span><span class="step-text">Generando análisis con IA</span></div>
+            <div class="step" data-step="3"><span class="step-indicator"></span><span class="step-text">Creando avatar del perfil</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado: Error -->
+      <div id="errorState" class="result-panel error-state hidden">
+        <div class="error-content">
+          <div class="error-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <h2>Error en la evaluación</h2>
+          <p id="errorMessage">Ha ocurrido un error inesperado. Por favor intenta nuevamente.</p>
+          <button id="retryBtn" class="retry-btn">Reintentar</button>
+        </div>
+      </div>
+
+      <!-- Estado: Resultado -->
+      <div id="resultState" class="result-panel result-state hidden">
+        <div class="result-content">
+
+          <!-- HERO: Persona Card -->
+          <div class="persona-hero">
+            <div class="persona-avatar-container">
+              <div class="avatar-ring">
+                <div class="avatar-placeholder" id="avatarPlaceholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>
+                </div>
+                <img id="avatarImage" class="avatar-img hidden" src="" alt="Avatar del candidato">
+              </div>
+              <div class="avatar-generating hidden" id="avatarGenerating">
+                <div class="mini-spinner"></div>
+                <span>Generando avatar...</span>
+              </div>
+            </div>
+            <div class="persona-info">
+              <h2 class="persona-name">Buyer Persona</h2>
+              <div class="persona-meta">
+                <span class="meta-chip" id="metaAge">—</span>
+                <span class="meta-chip" id="metaGender">—</span>
+                <span class="meta-chip" id="metaJob">—</span>
+                <span class="meta-chip" id="metaEducation">—</span>
+              </div>
+              <p class="persona-summary" id="resumenText">—</p>
+            </div>
+            <div class="persona-score-container">
+              <div class="tier-badge" id="tierBadge">
+                <span class="tier-label">Tier</span>
+                <span class="tier-value" id="tierValue">—</span>
+              </div>
+              <div class="score-circle" id="scoreCircle">
+                <svg viewBox="0 0 120 120">
+                  <defs>
+                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#1E3A8A"/>
+                      <stop offset="50%" stop-color="#00A86B"/>
+                      <stop offset="100%" stop-color="#00C9A7"/>
+                    </linearGradient>
+                  </defs>
+                  <circle class="score-bg" cx="60" cy="60" r="52"/>
+                  <circle class="score-progress" id="scoreProgress" cx="60" cy="60" r="52"/>
+                </svg>
+                <div class="score-inner">
+                  <span class="score-value" id="scoreValue">0</span>
+                  <span class="score-max">/100</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Score algorítmico -->
+          <div class="result-section algo-comparison hidden" id="algoScoreSection">
+            <h3 class="section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Score Algorítmico
+            </h3>
+            <div class="algo-score-content">
+              <div class="algo-score-header">
+                <div class="algo-score-display">
+                  <span class="algo-score-value" id="algoScoreValue">0</span>
+                  <span class="algo-score-max">/100</span>
+                </div>
+                <div class="algo-tier-badge">
+                  <span class="algo-tier-label">Tier</span>
+                  <span class="algo-tier-value" id="algoTierBadge">—</span>
+                </div>
+              </div>
+              <div class="algo-score-bar-container">
+                <div class="algo-score-bar" id="algoScoreBar"></div>
+              </div>
+              <p class="algo-score-note">Evaluación objetiva basada en datos ponderados. Compáralo con el análisis del LLM.</p>
+            </div>
+          </div>
+
+          <!-- Dimensiones -->
+          <div class="result-section">
+            <h3 class="section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+              Puntajes por Dimensión
+            </h3>
+            <div class="dimensions-grid" id="dimensionsGrid"></div>
+          </div>
+
+          <!-- Análisis -->
+          <div class="result-section">
+            <h3 class="section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Análisis
+            </h3>
+            <ul class="analysis-list" id="analysisList"></ul>
+          </div>
+
+          <!-- Fortalezas y Fricciones -->
+          <div class="result-section two-columns">
+            <div class="column">
+              <h3 class="section-title strengths-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Fortalezas
+              </h3>
+              <ul class="strengths-list" id="strengthsList"></ul>
+            </div>
+            <div class="column">
+              <h3 class="section-title frictions-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Fricciones
+              </h3>
+              <ul class="frictions-list" id="frictionsList"></ul>
+            </div>
+          </div>
+
+          <!-- Validación -->
+          <div class="result-section" id="validationsSection">
+            <h3 class="section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Validación de Datos
+            </h3>
+            <div class="validations-list" id="validationsList"></div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="result-meta">
+            <span class="meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="generatedAt">—</span>
+            </span>
+            <span class="meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>
+                Powered by Groq & FLUX AI · UTP Posgrados
+            </span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal de Configuración -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-backdrop" onclick="closeSettingsModalDirect()"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Configuración</h2>
+        <button id="closeSettingsBtn" class="modal-close" onclick="closeSettingsModalDirect()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">Configura tus calves de API para usar las funcionalidades de la aplicación. Ambas son gratuitas.</p>
+        <div class="form-group">
+          <label for="groqApiKey">Groq API Key (Análisis de Texto)</label>
+          <input type="password" id="groqApiKey" placeholder="gsk_..." autocomplete="off">
+          <span class="error-message" id="groqApiKey-error"></span>
+          <p class="field-hint">Consíguela gratis en <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a></p>
+        </div>
+        <div class="form-group" style="margin-top: 16px;">
+          <label for="hfApiKey">Hugging Face Token (Generación de Rostros)</label>
+          <input type="password" id="hfApiKey" placeholder="hf_..." autocomplete="off">
+          <span class="error-message" id="hfApiKey-error"></span>
+          <p class="field-hint">Consíguela gratis en <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co/settings/tokens</a> (Permiso 'Read' o 'Write')</p>
+        </div>
+        <div class="api-key-status" id="apiKeyStatus" style="margin-top: 10px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="saveSettingsBtn" class="submit-btn">
+          <span class="btn-text">Guardar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Export Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+
+  <!-- GSAP Animation Engine (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <script src="api.js"></script>
+  <script src="animations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
